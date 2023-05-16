@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [conventional-commits](https://www.conventionalcommits.org/) for commit guidelines.
 
+## [9.0.0](https://github.com/terraform-google-modules/terraform-google-vm/compare/v8.0.1...v9.0.0) (2023-05-16)
+
+
+### ⚠ BREAKING CHANGES
+
+* autoscaler supporting stateful ips ([#297](https://github.com/terraform-google-modules/terraform-google-vm/issues/297))
+
+### Features
+
+* autoscaler supporting stateful ips ([#297](https://github.com/terraform-google-modules/terraform-google-vm/issues/297)) ([5d13e8b](https://github.com/terraform-google-modules/terraform-google-vm/commit/5d13e8b876fb73691dedfe80e32ee8280f2a98b4))
+
 ## [8.0.1](https://github.com/terraform-google-modules/terraform-google-vm/compare/v8.0.0...v8.0.1) (2023-04-06)
 
 
