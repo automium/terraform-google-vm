@@ -4,7 +4,7 @@ resource "google_compute_disk" "add_disk" {
   zone  = var.zones[count.index % length(var.zones)]
   size  = var.size
   count = var.num_volumes
-  interface = var.interface
+  #interface = var.interface # in beta
   physical_block_size_bytes = 4096
 }
 
