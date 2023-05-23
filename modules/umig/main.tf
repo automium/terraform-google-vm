@@ -46,9 +46,10 @@ data "google_compute_zones" "available" {
 resource "google_compute_instance_from_template" "compute_instance" {
   provider = google
   count    = local.num_instances
-  name     = format("%s%s%s", local.hostname, var.hostname_suffix_separator, format("%03d", count.index + 1))
+  name     = format("%s%s%s", local.hostname, var.hostname_suffix_separator, format(count.index))
   project  = var.project_id
-  zone     = data.google_compute_zones.available.names[count.index % length(data.google_compute_zones.available.names)]
+  #zone                = var.zone == null ? data.google_compute_zones.available.names[count.index % length(data.google_compute_zones.available.names)] : var.zone
+  zone                = var.zones == null ? data.google_compute_zones.available.names[count.index % length(data.google_compute_zones.available.names)] : var.zones[count.index % length(var.zones)]
 
   network_interface {
     network            = var.network
@@ -121,3 +122,10 @@ resource "google_compute_instance_group" "instance_group" {
   }
 }
 
+output "instance_name" {
+    value = google_compute_instance_from_template.compute_instance.*.id
+}
+
+output "num_instances" {
+    value = var.num_instances
+}

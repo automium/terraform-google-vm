@@ -115,3 +115,7 @@ variable "hostname_suffix_separator" {
   description = "Separator character to compose hostname when add_hostname_suffix is set to true."
   default     = "-"
 }
+
+variable "zones" {
+  default     = null
+}
