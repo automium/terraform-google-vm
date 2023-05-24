@@ -168,4 +168,4 @@ resource "google_compute_region_health_check" "tcp" {
   log_config {
     enable = var.health_check["enable_logging"]
   }
-
+}
