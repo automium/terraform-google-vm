@@ -124,3 +124,48 @@ output "instance_name" {
 output "num_instances" {
     value = var.num_instances
 }
+
+resource "google_compute_region_health_check" "http" {
+  count   = var.health_check["type"] == "http" ? 1 : 0
+  project = var.project_id
+  name    = var.health_check_name == "" ? "${var.hostname}-http-healthcheck" : var.health_check_name
+
+  check_interval_sec  = var.health_check["check_interval_sec"]
+  healthy_threshold   = var.health_check["healthy_threshold"]
+  timeout_sec         = var.health_check["timeout_sec"]
+  unhealthy_threshold = var.health_check["unhealthy_threshold"]
+
+  http_health_check {
+    port         = var.health_check["port"]
+    request_path = var.health_check["request_path"]
+    host         = var.health_check["host"]
+    response     = var.health_check["response"]
+    proxy_header = var.health_check["proxy_header"]
+  }
+
+  log_config {
+    enable = var.health_check["enable_logging"]
+  }
+}
+
+resource "google_compute_region_health_check" "tcp" {
+  count   = var.health_check["type"] == "tcp" ? 1 : 0
+  project = var.project_id
+  name    = var.health_check_name == "" ? "${var.hostname}-tcp-healthcheck" : var.health_check_name
+
+  timeout_sec         = var.health_check["timeout_sec"]
+  check_interval_sec  = var.health_check["check_interval_sec"]
+  healthy_threshold   = var.health_check["healthy_threshold"]
+  unhealthy_threshold = var.health_check["unhealthy_threshold"]
+
+  tcp_health_check {
+    port         = var.health_check["port"]
+    request      = var.health_check["request"]
+    response     = var.health_check["response"]
+    proxy_header = var.health_check["proxy_header"]
+  }
+
+  log_config {
+    enable = var.health_check["enable_logging"]
+  }
+
