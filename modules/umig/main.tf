@@ -25,7 +25,6 @@ locals {
 
   instance_group_count = min(
     local.num_instances,
-    length(data.google_compute_zones.available.names),
   )
 }
 
